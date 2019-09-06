@@ -1,0 +1,29 @@
+{
+  "name": "high-street-kicks",
+  "version": "1.0.0",
+  "description": "*An e-commerce website to shop for trainers.*",
+  "main": "server.js",
+  "scripts": {
+    "restart": "kill $(lsof -t -i:5000)",
+    "start": "nodemon -r esm server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run start\" \"npm run restart\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yem82/high-street-kicks.git"
+  },
+  "author": "Yemi Adebayo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yem82/high-street-kicks/issues"
+  },
+  "homepage": "https://github.com/yem82/high-street-kicks#readme",
+  "dependencies": {
+    "concurrently": "^4.1.2",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.2",
+    "npm": "^6.11.3"
+  }
+}
