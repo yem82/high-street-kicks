@@ -6,6 +6,11 @@
 
 ```
 As a user,
+So that I can find new trainers,
+I'd like to see a selection of shoes.
+```
+```
+As a user,
 So that I can shop trainers by brand name, colour or size,
 I'd like to be able to use a search filter.
 ```
