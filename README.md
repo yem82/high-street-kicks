@@ -6,7 +6,7 @@
 
 ```
 As a user,
-So that I can find new trainers,
+So that I can find new trainers to buy,
 I'd like to see a selection of shoes.
 ```
 ```
@@ -52,3 +52,4 @@ I'd like to sign out of my account.
 * Express.js
 * React.js
 * MongoDB
+* Mongoose
