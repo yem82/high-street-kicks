@@ -24,6 +24,14 @@ import usersRouter from './routes/users';
 app.use('/shoes', shoesRouter);
 app.use('/users', usersRouter);
 
+import path from 'path';
+
+app.use(express.static(path.join(__dirname, 'client/build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
+
 app.listen(PORT, () => {
   console.log(`auto baby on ${PORT}!`);
 });
