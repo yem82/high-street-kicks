@@ -1,5 +1,8 @@
 {
   "name": "high-street-kicks",
+  "engines": {
+    "node": "10.15.3"
+  },
   "version": "1.0.0",
   "description": "*An e-commerce website to shop for trainers.*",
   "main": "server.js",
