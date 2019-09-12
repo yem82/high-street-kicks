@@ -11,6 +11,11 @@ const userSchema = new Schema({
     minlength: [8, 'password length must be 8 characters or more'],
     maxlength: 15
   },
+  password2: {
+    type: String,
+    minlength: [8, 'password length must be 8 characters or more'],
+    maxlength: 15
+  },
   email: {
     type: String,
     required: true,
@@ -24,8 +29,13 @@ const userSchema = new Schema({
   phone: {
     type: Number,
     required: true,
-  }
-
+  },
+  order: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Shoe'
+    }
+  ]
 }, {
   timestamps: true
 });

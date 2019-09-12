@@ -1,59 +1,73 @@
-const router = require('express').Router();
-import User from '../models/user';
+// import User from '../models/user';
+// import bcrypt from 'bcryptjs';
+// const router = require('express').Router();
 
-router.route('/').get((req, res) => {
-  User.find()
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.get('/', (req, res) => {
+//   User.find()
+//     .then(user => res.json(user))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
-router.route('/add').post((req, res) => {
-  const name = req.body.name;
-  const password = req.body.password;
-  const email = req.body.email;
-  const address = req.body.address;
-  const phone = Number(req.body.phone);
+// router.post('/register', (req, res) => {
+//   const name = req.body.name;
+//   const password = req.body.password;
+//   const password2 = req.body.password2;
+//   const email = req.body.email;
+//   const address = req.body.address;
+//   const phone = Number(req.body.phone);
 
-  const newUser = new User ({
-    name,
-    password,
-    email,
-    address,
-    phone
-  });
+//   const newUser = new User ({
+//     name,
+//     password,
+//     password2,
+//     email,
+//     address,
+//     phone
+//   });
 
-  newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-})
+//   bcrypt.genSalt(10, (err, salt) => {
+//     bcrypt.hash(newUser.password), salt, (err, hash) => {
+//       newUser.password = hash;
+//       newUser.save()
+//       .then(() => res.json('User added!'))
+//       .catch(err => res.status(400).json('Error: ' + err));
+//       res.redirect('/users/login');
+//     };
+//   })
+// });
 
-router.route('/:id').get((req, res) => {
-  User.findById(req.params.id)
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.post('/login', (req, res) => {
+//   res.render('/login')
+// });
 
-router.route('/:id').delete((req, res) => {
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.json('User deleted!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.get('/:id', (req, res) => {
+//   User.findById(req.params.id)
+//     .then(user => res.json(user))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
-router.route('/update/:id').post((req, res) => {
-  User.findById(req.params.id)
-    .then((user) => {
-    user.name = req.body.name;
-    user.password = req.body.password;
-    user.email = req.body.email;
-    user.address = req.body.address;
-    user.phone = req.body.phone;
+// router.delete('/:id', (req, res) => {
+//   User.findByIdAndDelete(req.params.id)
+//     .then(() => res.json('User deleted!'))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
-    user.save()
-      .then(() => res.json('User updated!'))
-      .catch(err => res.status(400).json('Error: ' + err));
-    })
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.post('/update/:id', (req, res) => {
+//   User.findById(req.params.id)
+//     .then((user) => {
+//     user.name = req.body.name;
+//     user.password = req.body.password;
+//     user.password2 = req.body.password2;
+//     user.email = req.body.email;
+//     user.address = req.body.address;
+//     user.phone = req.body.phone;
+
+//     user.save()
+//       .then(() => res.json('User updated!'))
+//       .catch(err => res.status(400).json('Error: ' + err));
+//     })
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 
-export default router;
+// export default router;

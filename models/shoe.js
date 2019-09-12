@@ -10,6 +10,10 @@ const shoeSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   price: {
     type: Number,
     required: true
@@ -30,7 +34,12 @@ const shoeSchema = new Schema({
     type: String,
     data: Buffer,
     required: true
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
+
 }, {
   timestamps: true
 });

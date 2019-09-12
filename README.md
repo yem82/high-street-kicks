@@ -53,3 +53,4 @@ I'd like to sign out of my account.
 * React.js
 * MongoDB
 * Mongoose
+* GraphQL
