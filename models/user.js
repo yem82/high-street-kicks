@@ -9,12 +9,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     minlength: [8, 'password length must be 8 characters or more'],
-    maxlength: 15
-  },
-  password2: {
-    type: String,
-    minlength: [8, 'password length must be 8 characters or more'],
-    maxlength: 15
+    // maxlength: 15
   },
   email: {
     type: String,

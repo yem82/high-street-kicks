@@ -3,6 +3,7 @@ import cors from 'cors';
 import { buildSchema } from 'graphql';
 import graphqlHttp from 'express-graphql';
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import Shoe from './models/shoe';
 import User from './models/user';
 import 'dotenv/config';
@@ -33,9 +34,8 @@ app.use('/graphql', graphqlHttp({
       name: String!
       email: String!
       password: String!
-      password2: String!
       address: String!
-      phone: Int!
+      phone: String!
     }
 
     input ShoeInput {
@@ -53,13 +53,13 @@ app.use('/graphql', graphqlHttp({
       name: String!
       email: String!
       password: String!
-      password2: String!
       address: String!
-      phone: Int!
+      phone: String!
     }
 
     type RootQuery {
       shoes: [Shoe!]!
+      users: [User!]!
     }
 
     type RootMutation {
@@ -81,6 +81,17 @@ app.use('/graphql', graphqlHttp({
       })
       .catch(err => console.log(err))
     },
+
+    users: () => {
+      return User.find()
+        .then(users => {
+        return users.map(user => {
+          return { ...user._doc }
+       })
+      })
+      .catch(err => console.log(err))
+    },
+
     createShoe: (args) => {
 
       const shoe = new Shoe({
@@ -104,20 +115,21 @@ app.use('/graphql', graphqlHttp({
       });
     },
     createUser: (args) => {
-      const user = new User({
-        name: args.userInput.name,
-        email: args.userInput.email,
-        password: args.userInput.password,
-        password2: args.userInput.password2,
-        email: args.userInput.email,
-        address: args.userInput.address,
-        phone: args.userInput.phone
-      })
-      return user
-        .save()
+      bcrypt
+        .hash(args.userInput.password, 12)
+        .then(hashedPassword => {
+          const user = new User({
+            name: args.userInput.name,
+            email: args.userInput.email,
+            password: hashedPassword,
+            address: args.userInput.address,
+            phone: args.userInput.phone
+          });
+          return user.save()
+        })
         .then(result => {
           console.log(result);
-          return {...result._doc};
+          return {...result._doc, password: null};
       }).catch(err => {
           console.log(err);
           throw err;
