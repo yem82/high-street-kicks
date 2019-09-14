@@ -1,11 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { buildSchema } from 'graphql';
 import graphqlHttp from 'express-graphql';
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import Shoe from './models/shoe';
-import User from './models/user';
+import graphQLSchema from './graphql/schema/index';
+import graphQLResolvers from './graphql/resolvers/index';
 import 'dotenv/config';
 
 const app = express();
@@ -16,128 +14,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/graphql', graphqlHttp({
-  schema: buildSchema(`
-    type Shoe {
-      _id: ID!
-      name: String!
-      brand: String!
-      description: String!
-      colour: String!
-      quantity: Int!
-      price: Float!
-      size: Int!
-      image: String
-    }
-
-    type User {
-      _id: ID!
-      name: String!
-      email: String!
-      password: String!
-      address: String!
-      phone: String!
-    }
-
-    input ShoeInput {
-      name: String!
-      brand: String!
-      description: String!
-      colour: String!
-      quantity: Int!
-      price: Float!
-      size: Int!
-      image: String
-    }
-
-    input UserInput {
-      name: String!
-      email: String!
-      password: String!
-      address: String!
-      phone: String!
-    }
-
-    type RootQuery {
-      shoes: [Shoe!]!
-      users: [User!]!
-    }
-
-    type RootMutation {
-      createShoe(shoeInput: ShoeInput): Shoe
-      createUser(userInput: UserInput): User
-    }
-    schema {
-      query: RootQuery
-      mutation: RootMutation
-    }
-  `),
-  rootValue: {
-    shoes: () => {
-      return Shoe.find()
-        .then(shoes => {
-        return shoes.map(shoe => {
-          return { ...shoe._doc }
-       })
-      })
-      .catch(err => console.log(err))
-    },
-
-    users: () => {
-      return User.find()
-        .then(users => {
-        return users.map(user => {
-          return { ...user._doc }
-       })
-      })
-      .catch(err => console.log(err))
-    },
-
-    createShoe: (args) => {
-
-      const shoe = new Shoe({
-        brand: args.shoeInput.brand,
-        name: args.shoeInput.name,
-        description: args.shoeInput.description,
-        colour: args.shoeInput.colour,
-        quantity: +args.shoeInput.quantity,
-        price: +args.shoeInput.price,
-        size: +args.shoeInput.size,
-        image: args.shoeInput.image
-      })
-      return shoe
-        .save()
-        .then(result => {
-          console.log(result);
-          return {...result._doc};
-      }).catch(err => {
-          console.log(err);
-          throw err;
-      });
-    },
-    createUser: (args) => {
-      bcrypt
-        .hash(args.userInput.password, 12)
-        .then(hashedPassword => {
-          const user = new User({
-            name: args.userInput.name,
-            email: args.userInput.email,
-            password: hashedPassword,
-            address: args.userInput.address,
-            phone: args.userInput.phone
-          });
-          return user.save()
-        })
-        .then(result => {
-          console.log(result);
-          return {...result._doc, password: null};
-      }).catch(err => {
-          console.log(err);
-          throw err;
-      });
-    }
-  },
+  schema: graphQLSchema,
+  rootValue: graphQLResolvers,
   graphiql: true
-}));
+  },
+));
 
 const uri = process.env.ATLAS_URI
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }

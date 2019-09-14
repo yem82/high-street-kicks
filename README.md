@@ -31,7 +31,7 @@ I'd like to be shown the total price of items in the basket.
 ```
 ```
 As a user,
-So that I view my order history,
+So that I can view my order history,
 I'd like to create an account.
 ```
 ```

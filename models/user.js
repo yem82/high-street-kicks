@@ -25,7 +25,7 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
-  order: [
+  createdOrders: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Shoe'
