@@ -25,12 +25,12 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
-  createdOrders: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Shoe'
-    }
-  ]
+  // createdOrders: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Shoe'
+  //   }
+  // ]
 }, {
   timestamps: true
 });

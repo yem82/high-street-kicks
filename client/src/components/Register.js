@@ -6,16 +6,20 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      password: null,
-      password2: null,
-      email: null,
-      address: null,
-      phone: null
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      address: '',
+      phone: ''
     };
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+
   }
 
   handleChange = (event) => {
@@ -26,23 +30,21 @@ class Register extends Component {
     event.preventDefault();
 
     const user = {
-      name = this.state.name,
-      password = this.state.password,
-      password2 = this.state.password2,
-      email = this.state.email,
-      address = this.state.address,
-      phone = this.state.phone
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2,
+      address: this.state.address,
+      phone: this.state.phone
     };
 
-    console.log(name, password, password2, email, address, phone);
-
     this.setState({
-      name: null,
-      password: null,
-      password2: null,
-      email: null,
-      address: null,
-      phone: null,
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      address: '',
+      phone: '',
     })
   };
 
@@ -50,32 +52,20 @@ class Register extends Component {
 
     return (
       <div>
-          <form onSubmit={this.handleSubmit} className="form" id="contact">
+          <form onSubmit={this.handleSubmit} className="form" id="registration">
             <div className="row form-row">
-            <p className="required">* required</p>
-              <br/>
-            <div class="name-1">
-              <label className="first-name">*First name</label>
+            <div>
+              <label className="name">Name</label>
               <input
               className="form-text"
               type="text"
-              name="firstname"
-              value={this.state.firstname}
+              name="name"
+              value={this.state.name}
               onChange={this.handleChange}/>
             </div>
 
             <div>
-              <label className="last-name">*Last name</label>
-              <input
-              className="form-text"
-              type="text"
-              name="lastname"
-              value={this.state.lastname}
-              onChange={this.handleChange}/>
-            </div>
-
-            <div>
-              <label className="email">*Email</label>
+              <label className="email">Email:</label>
               <input
                 className="form-text"
                 type="text"
@@ -85,21 +75,41 @@ class Register extends Component {
             </div>
 
             <div>
-              <label className="subject">Subject</label>
+              <label className="password">Password:</label>
               <input
+                className="form-text"
+                type="text"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}/>
+            </div>
+
+            <div>
+              <label className="password2">Re-enter password:</label>
+              <input
+                className="form-text"
+                type="text"
+                name="password2"
+                value={this.state.password2}
+                onChange={this.handleChange}/>
+            </div>
+
+            <div>
+              <label className="address">Address:</label>
+              <textarea
               className="form-text"
               type="text"
-              name="subject"
-              value={this.state.subject}
+              name="address"
+              value={this.state.address}
               onChange={this.handleChange}/>
             </div>
 
             <div>
-              <label className="message">*Message</label>
-              <textarea
+              <label className="phone">Phone:</label>
+              <input
               className="form-text"
-              name="message"
-              value={this.state.message}
+              name="phone"
+              value={this.state.phone}
               onChange={this.handleChange}/>
             </div>
 
