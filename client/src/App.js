@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import './components/stylesheets/App.sass';
+import './components/stylesheets/App.scss';
 import Navbar from "./components/Navbar";
-import CreateUser from "./components/Register";
-import ShoeList from "./components/Shoes";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Shoes from "./components/Shoes";
 
 
 function App() {
   return (
     <Router>
       <Navbar/>
-      <Route path="/" exact component={ShoeList} />
-      <Route path="/users" exact component={CreateUser} />
+      <Route path="/" exact component={Shoes} />
+      <Route path="/users/register" exact component={Register} />
+      <Route path="/users/login" exact component={Login} />
     </Router>
   );
 }

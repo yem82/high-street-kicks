@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './stylesheets/Register.sass';
+import './stylesheets/Register.scss';
 
 class Register extends Component {
   constructor(props) {
@@ -16,10 +16,6 @@ class Register extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidMount() {
-
   }
 
   handleChange = (event) => {
@@ -38,84 +34,81 @@ class Register extends Component {
       phone: this.state.phone
     };
 
-    this.setState({
-      name: '',
-      email: '',
-      password: '',
-      password2: '',
-      address: '',
-      phone: '',
-    })
+    console.log(user)
+
+    axios.post('/users/register', user)
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err))
   };
 
   render() {
 
     return (
       <div>
-          <form onSubmit={this.handleSubmit} className="form" id="registration">
-            <div className="row form-row">
-            <div>
-              <label className="name">Name</label>
-              <input
+        <form onSubmit={this.handleSubmit} className="form" id="registration">
+          <div className="row form-row">
+          <div>
+            <label className="name">Name</label>
+            <input
+            className="form-text"
+            type="text"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleChange}/>
+          </div>
+
+          <div>
+            <label className="email">Email:</label>
+            <input
               className="form-text"
               type="text"
-              name="name"
-              value={this.state.name}
+              name="email"
+              value={this.state.email}
               onChange={this.handleChange}/>
-            </div>
+          </div>
 
-            <div>
-              <label className="email">Email:</label>
-              <input
-                className="form-text"
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleChange}/>
-            </div>
-
-            <div>
-              <label className="password">Password:</label>
-              <input
-                className="form-text"
-                type="text"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleChange}/>
-            </div>
-
-            <div>
-              <label className="password2">Re-enter password:</label>
-              <input
-                className="form-text"
-                type="text"
-                name="password2"
-                value={this.state.password2}
-                onChange={this.handleChange}/>
-            </div>
-
-            <div>
-              <label className="address">Address:</label>
-              <textarea
+          <div>
+            <label className="password">Password:</label>
+            <input
               className="form-text"
               type="text"
-              name="address"
-              value={this.state.address}
+              name="password"
+              value={this.state.password}
               onChange={this.handleChange}/>
-            </div>
+          </div>
 
-            <div>
-              <label className="phone">Phone:</label>
-              <input
+          <div>
+            <label className="password2">Re-enter password:</label>
+            <input
               className="form-text"
-              name="phone"
-              value={this.state.phone}
+              type="text"
+              name="password2"
+              value={this.state.password2}
               onChange={this.handleChange}/>
-            </div>
+          </div>
 
-            <button type="submit">Submit</button>
-            </div>
-            </form>
+          <div>
+            <label className="address">Address:</label>
+            <textarea
+            className="form-text"
+            type="text"
+            name="address"
+            value={this.state.address}
+            onChange={this.handleChange}/>
+          </div>
+
+          <div>
+            <label className="phone">Phone:</label>
+            <input
+            className="form-text"
+            name="phone"
+            value={this.state.phone}
+            onChange={this.handleChange}/>
+          </div>
+
+          <button type="submit">Submit</button>
+          </div>
+          </form>
       </div>
     );
   }

@@ -10,10 +10,7 @@ router.get('/', (req, res) => {
 
 router.post('/register', (req, res) => {
   bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if(err) {
-      res.json({ err })
-    } else {
-      const user = new User ({
+      const user = new User({
         name: req.body.name,
         password: hash,
         password2: req.body.password2,
@@ -24,7 +21,6 @@ router.post('/register', (req, res) => {
       user.save()
         .then(() => res.json('User added!'))
         .catch(err => res.status(400).json('Error: ' + err));
-    }
   });
 });
 
