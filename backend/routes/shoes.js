@@ -1,5 +1,5 @@
 const router = require('express').Router();
-import Shoe from '../models/shoe';
+import Shoe from '../db/models/shoe';
 
 router.route('/').get((req, res) => {
   Shoe.find()
